@@ -10,9 +10,9 @@ async function requireAuth(req, res, next) {
 
 async function requireHost(req, res, next) {
   const user = req.session.user
-  if (!user.isHost) {
+  if (!user.stays || !user.stays.length) {
     logger.warn(user.fullname + ' Attempt to perform host action')
-    res.status(403).end('Unauthorized Enough...')
+    res.status(403).end('Unauthorized To Perform That Action.')
     return
   }
   next()

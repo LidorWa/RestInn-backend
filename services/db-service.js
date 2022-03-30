@@ -2,7 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const config = require('../config')
 const logger = require('./logger-service')
 
-const dbName = 'stay_db'
+const dbName = 'restinn'
 var dbConn = null
 
 module.exports = {

@@ -6,10 +6,10 @@ const ObjectId = require('mongodb').ObjectId
 
 async function query(filterBy) {
     try {
-        const criteria = _buildCriteria(filterBy);
-        const sort = _buildSort(filterBy)
+        // const criteria = _buildCriteria(filterBy);
+        // const sort = _buildSort(filterBy)
         const collection = await dbService.getCollection('stay')
-        var stays = await collection.find(criteria).sort(sort).toArray()
+        var stays = await collection.find().sort().toArray()
         return stays
     } catch (err) {
         logger.error('cannot find stays', err)
@@ -56,9 +56,10 @@ async function update(stay) {
         delete stay._id
         const collection = await dbService.getCollection('stay')
         await collection.updateOne({ "_id": id }, { $set: { ...stay } })
+        stay._id = id;
         return stay
     } catch (err) {
-        logger.error(`cannot update stay ${stayId}`, err)
+        logger.error(`cannot update stay ${id}`, err)
         throw err
     }
 }

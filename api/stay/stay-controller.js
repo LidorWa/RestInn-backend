@@ -8,6 +8,7 @@ async function getStays(req, res) {
     const stays = await stayService.query(queryParams)
     res.json(stays);
   } catch (err) {
+
     logger.error('Failed to get stays', err)
     res.status(500).send({ err: 'Failed to get stays' })
   }
