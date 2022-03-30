@@ -2,7 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const path = require('path')
 const expressSession = require('express-session')
+const logger = require('./services/logger-service')
 require('dotenv').config()
+
 
 
 const app = express()
@@ -55,7 +57,7 @@ app.get('/**', (req, res) => {
 })
 
 
-const logger = require('./services/logger-service')
+
 const port = process.env.PORT || 3030
 
 

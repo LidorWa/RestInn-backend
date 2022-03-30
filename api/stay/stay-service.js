@@ -9,7 +9,7 @@ async function query(filterBy) {
         // const criteria = _buildCriteria(filterBy);
         // const sort = _buildSort(filterBy)
         const collection = await dbService.getCollection('stay')
-        var stays = await collection.find().sort().toArray()
+        var stays = await collection.find().toArray()
         return stays
     } catch (err) {
         logger.error('cannot find stays', err)
@@ -20,7 +20,7 @@ async function query(filterBy) {
 async function getById(stayId) {
     try {
         const collection = await dbService.getCollection('stay')
-        const stay = collection.findOne({ '_id': ObjectId(stayId) })
+        const stay = collection.findOne({ _id: ObjectId(stayId) })
         return stay
     } catch (err) {
         logger.error(`while finding stay ${stayId}`, err)
