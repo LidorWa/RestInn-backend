@@ -1,22 +1,22 @@
-const orderService = require('./order-service.js');
+const orderService = require('./order-service.js')
 const logger = require('../../services/logger-service.js')
 
 // GET LIST
 async function getOrders(req, res) {
   try {
-    var queryParams = req.query;
+    var queryParams = req.query
     const orders = await orderService.query(queryParams)
-    res.json(orders);
+    res.json(orders)
   } catch (err) {
     logger.error('Failed to get orders', err)
     res.status(500).send({ err: 'Failed to get orders' })
   }
 }
 
-// GET BY ID 
+// GET BY ID
 async function getOrderById(req, res) {
   try {
-    const orderId = req.params.id;
+    const orderId = req.params.id
     const order = await orderService.getById(orderId)
     res.json(order)
   } catch (err) {
@@ -28,7 +28,8 @@ async function getOrderById(req, res) {
 // POST (add order)
 async function addOrder(req, res) {
   try {
-    const order = req.body;
+    const order = req.body
+    console.log('back controller order', order)
     const addedOrder = await orderService.add(order)
     res.json(addedOrder)
   } catch (err) {
@@ -40,20 +41,19 @@ async function addOrder(req, res) {
 // PUT (Update order)
 async function updateOrder(req, res) {
   try {
-    const order = req.body;
+    const order = req.body
     const updatedOrder = await orderService.update(order)
     res.json(updatedOrder)
   } catch (err) {
     logger.error('Failed to update order', err)
     res.status(500).send({ err: 'Failed to update order' })
-
   }
 }
 
 // DELETE (Remove order)
 async function removeOrder(req, res) {
   try {
-    const orderId = req.params.id;
+    const orderId = req.params.id
     const removedId = await orderService.remove(orderId)
     res.send(removedId)
   } catch (err) {
@@ -67,5 +67,5 @@ module.exports = {
   getOrderById,
   addOrder,
   updateOrder,
-  removeOrder
+  removeOrder,
 }
