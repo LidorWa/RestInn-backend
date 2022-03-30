@@ -1,23 +1,8 @@
-<<<<<<< HEAD
-const express = require('express')
-const cors = require('cors')
-const path = require('path')
-const expressSession = require('express-session')
-const logger = require('./services/logger-service')
-require('dotenv').config()
-
-
-
-const app = express()
-const http = require('http').createServer(app)
-const dbService = require('./services/db-service')
-=======
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const expressSession = require("express-session");
 require("dotenv").config();
->>>>>>> d4372fd7f954e2ed0db029915f81d954df96c355
 
 const app = express();
 const http = require("http").createServer(app);
@@ -67,24 +52,9 @@ app.use("/api/user", userRoutes);
 app.use("/api/stay", stayRoutes);
 app.use("/api/order", orderRoutes);
 
-<<<<<<< HEAD
-app.use('/api/auth', authRoutes)
-app.use('/api/user', userRoutes)
-app.use('/api/stay', stayRoutes)
-app.use('/api/order', orderRoutes)
-
-app.get('/**', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
-
-
-
-const port = process.env.PORT || 3030
-=======
 app.get("/**", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
->>>>>>> d4372fd7f954e2ed0db029915f81d954df96c355
 
 const logger = require("./services/logger-service");
 const port = process.env.PORT || 3030;
