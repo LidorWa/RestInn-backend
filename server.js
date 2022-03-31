@@ -62,7 +62,7 @@ const bootstrap = async () => {
   await dbService.connect();
   http.listen(port, () => {
     logger.info("Server is running on port: " + port);
-    console.log("http://localhost:3030/api/");
+    console.log(`http://localhost:${port}/api/`);
   });
 };
 
