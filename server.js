@@ -21,6 +21,7 @@ app.use(session);
 app.use(express.static('public'))
 
 if (process.env.NODE_ENV === "production") {
+  console.log('in production')
   app.use(express.static(path.resolve(__dirname, "public")));
 } else {
   const corsOptions = {
