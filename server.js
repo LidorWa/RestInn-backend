@@ -2,11 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 // const expressSession = require("express-session");
-var expressSession = require("cookie-session")
+var expressSession = require("cookie-session");
 require("dotenv").config();
-
 const app = express();
 const http = require("http").createServer(app);
+
+// const { Server } = require("socket.io");
+// const io = new Server(http);
+
 const dbService = require("./services/db-service");
 
 const session = expressSession({
@@ -18,10 +21,10 @@ const session = expressSession({
 
 app.use(express.json());
 app.use(session);
-app.use(express.static('public'))
+app.use(express.static("public"));
 
 if (process.env.NODE_ENV === "production") {
-  console.log('in production')
+  console.log("in production");
   app.use(express.static(path.resolve(__dirname, "public")));
 } else {
   const corsOptions = {
