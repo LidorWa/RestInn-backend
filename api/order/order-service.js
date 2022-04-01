@@ -66,9 +66,9 @@ async function update(order) {
 function _buildCriteria(filterBy) {
   const criteria = {};
 
-  if (filterBy.id) {
-    criteria.hostId = filterBy.id;
-  }
+  if (filterBy.hostId) criteria.hostId = filterBy.hostId;
+
+  if (filterBy.userId) criteria["buyer._id"] = filterBy.userId;
 
   return criteria;
 }
