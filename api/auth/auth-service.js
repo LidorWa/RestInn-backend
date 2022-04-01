@@ -9,7 +9,7 @@ async function login(username, password) {
   if (!user) {
     return Promise.reject(new Error("Invalid username or password"));
   }
-  // TODO: un-comment for real login
+
   // const match = await bcrypt.compare(password, user.password)
   // if (!match) return Promise.reject('Invalid username or password')
 
@@ -17,11 +17,6 @@ async function login(username, password) {
   user._id = user._id.toString();
   return user;
 }
-
-// (async ()=>{
-//     await signup('bubu', '123', 'Bubu Bi')
-//     await signup('mumu', '123', 'Mumu Maha')
-// })()
 
 async function signup(username, password, fullname) {
   const saltRounds = 10;

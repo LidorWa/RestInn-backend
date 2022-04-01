@@ -62,13 +62,11 @@ async function remove(userId) {
 
 async function update(user) {
   try {
-    // peek only updatable fields!
     const userToSave = {
       _id: ObjectId(user._id),
       username: user.username,
       fullname: user.fullname,
       password: user.password,
-      // TODO: to check what to do with the password
       isHost: user.isHost,
     };
     const collection = await dbService.getCollection("user");
@@ -82,7 +80,7 @@ async function update(user) {
 
 async function add(user) {
   try {
-    // peek only updatable fields!
+
     const userToAdd = {
       username: user.username,
       imgUrl: user.imgUrl || "",
@@ -111,10 +109,5 @@ function _buildCriteria(filterBy) {
       },
     ];
   }
-
-  // an example for fltering in mingoDB by gte (greater than or even)
-  // if (filterBy.minBalance) {
-  //     criteria.balance = { $gte: filterBy.minBalance }
-  // }
   return criteria;
 }
