@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apexcharts": "^3.35.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "chart.js": "^3.7.1",
