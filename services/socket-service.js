@@ -2,6 +2,7 @@ const asyncLocalStorage = require('./als-service');
 const logger = require('./logger-service');
 
 var gIo = null
+let gUserSocket = []
 
 function connectSockets(http, session) {
     gIo = require('socket.io')(http, {
@@ -11,17 +12,37 @@ function connectSockets(http, session) {
     })
     gIo.on('connection', socket => {
         console.log('New socket', socket.id)
+        gUserSocket.push({ socketId: socket.id, })
         socket.on('disconnect', socket => {
             console.log('Someone disconnected')
         })
-        socket.on('chat topic', topic => {
-            if (socket.myTopic === topic) return;
-            if (socket.myTopic) {
-                socket.leave(socket.myTopic)
-            }
-            socket.join(topic)
-            socket.myTopic = topic
+        socket.on('enter dashboard', id => {
+            if (socket.hostId) socket.leave(id);
+            socket.join(id);
+            socket.hostId = id;
         })
+        socket.on('new order', order => {
+            console.log(order)
+            socket.broadcast.to(order.hostId).emit('added order', order);
+        })
+        socket.on('enter my-trips', id => {
+            if (socket.userId) socket.leave(id);
+            socket.join(id);
+            socket.userId = id;
+        })
+        socket.on('update status', order => {
+            console.log(order)
+            socket.broadcast.to(order.buyer._id).emit('status updated', order);
+        })
+
+        // socket.on('chat topic', topic => {
+        //     if (socket.myTopic === topic) return;
+        //     if (socket.myTopic) {
+        //         socket.leave(socket.myTopic)
+        //     }
+        //     socket.join(topic)
+        //     socket.myTopic = topic
+        // })
         socket.on('chat newMsg', msg => {
             console.log('Emitting Chat msg', msg);
             // emits to all sockets:
