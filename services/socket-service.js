@@ -21,6 +21,9 @@ function connectSockets(http, session) {
       socket.join(id);
       socket.hostId = id;
     });
+    //////////////////////////////////////////
+    //// Listening to an event "new order"////
+    //////////////////////////////////////////
     socket.on("new order", (order) => {
       console.log(order);
       socket.broadcast.to(order.hostId).emit("added order", order);
@@ -34,20 +37,8 @@ function connectSockets(http, session) {
       console.log(order);
       socket.broadcast.to(order.buyer._id).emit("status updated", order);
     });
-
-    // socket.on('chat topic', topic => {
-    //     if (socket.myTopic === topic) return;
-    //     if (socket.myTopic) {
-    //         socket.leave(socket.myTopic)
-    //     }
-    //     socket.join(topic)
-    //     socket.myTopic = topic
-    // })
     socket.on("chat newMsg", (msg) => {
       console.log("Emitting Chat msg", msg);
-      // emits to all sockets:
-      // gIo.emit('chat addMsg', msg)
-      // emits only to sockets in the same room
       gIo.to(socket.myTopic).emit("chat addMsg", msg);
     });
     socket.on("user-watch", (userId) => {
