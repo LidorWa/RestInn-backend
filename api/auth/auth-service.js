@@ -6,12 +6,10 @@ async function login(username, password) {
   logger.debug(`auth.service - login with username: ${username}`);
 
   const user = await userService.getByUsername(username);
-  if (!user) {
+  const match = await bcrypt.compare(password, user.password)
+  if (!user || !match) {
     return Promise.reject(new Error("Invalid username or password"));
   }
-
-  // const match = await bcrypt.compare(password, user.password)
-  // if (!match) return Promise.reject('Invalid username or password')
 
   delete user.password;
   user._id = user._id.toString();
